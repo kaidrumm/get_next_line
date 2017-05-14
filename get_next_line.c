@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdrumm <kdrumm@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdrumm <kdrumm@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/20 21:44:20 by kdrumm            #+#    #+#             */
-/*   Updated: 2016/11/09 16:39:32 by kdrumm           ###   ########.fr       */
+/*   Updated: 2017/05/13 19:17:34 by kdrumm           ###   ########.us       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	close_fd(t_list **stat, int fd)
 	if (((t_file *)current->content)->fd - fd == 0)
 	{
 		free(((t_file *)current->content)->buf);
+		free(current->content);
 		if (prev)
 			prev->next = current->next;
 		else
@@ -148,6 +149,7 @@ int			get_next_line(const int fd, char **line)
 	f = load_info(fd, &stat);
 	if (!line)
 		return (-1);
+	free(*line);
 	*line = NULL;
 	ret = 2;
 	while (1)
